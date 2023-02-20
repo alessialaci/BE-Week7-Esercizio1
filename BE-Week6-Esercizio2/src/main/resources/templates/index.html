@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edifici</title>
+        <style>
+            #resp {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            #resp .edificio {
+                background-color: lightgrey;
+                margin: 0 0 1rem 0;
+                padding: 0.5rem;
+            }
+        </style>
+    </head>
+	<body>
+		<h1>Edifici</h1>
+		
+		<button id="sendAjax" type="button" role="button">Mostra Edifici</button>
+		<div id="resp"></div>
+		
+		<script>
+			const btn = document.getElementById("sendAjax");
+			const resp = document.getElementById("resp");
+			
+			btn.addEventListener('click', () => {
+				fetch("http://localhost:8080/edifici")
+					.then(resp => resp.json())
+					.then(edifici => {
+						edifici.forEach((edificio, i) => {
+							resp.innerHTML += `
+								<div class="edificio">
+									Id: ${edificio.edificioId} - Nome: ${edificio.nome} - Indirizzo: ${edificio.indirizzo} - Citta: ${edificio.citta}
+								</div>`
+						})
+					})
+			})
+		</script>
+	</body>
+</html>
